@@ -10,18 +10,22 @@ import { renderCountry } from './js/marcup-country';
 
 const DEBOUNCE_DELAY = 1000;
 
-refs = {
-  input: document.querySelector('input'),
-  markUp: document.querySelector('.country-info'),
-  extendedInfo: document.querySelector('.country-info_extended')
-};
-console.log(refs.extendedInfo)
+// refs = {
+//   input: document.querySelector('input'),
+//   markUp: document.querySelector('.country-info'),
+//   extendedInfo: document.querySelector('.country-info_extended')
+// };
+const input = document.querySelector('input');
+const markUp = document.querySelector('.country-info');
+const extendedInfo= document.querySelector('.country-info_extended');
 
-refs.input.addEventListener('input', debounce(onInputchange, DEBOUNCE_DELAY));
+console.log(extendedInfo)
+
+input.addEventListener('input', debounce(onInputchange, DEBOUNCE_DELAY));
 
 function onInputchange(e) {
   e.preventDefault;
-  const inputData = refs.input.value.trim();
+  const inputData = input.value.trim();
   fetchCountries(inputData)
     // .then(country => {
     //   console.log(country);
@@ -33,16 +37,16 @@ function onInputchange(e) {
         const markup = renderCountry(country);
         switch(true){
           case (countries.length===1):
-          refs.markUp.innerHTML = markup;
+          markUp.innerHTML = markup;
           break;
           case (countries.length>10):
             
              Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
              break;
           case (1<countries.length<10):
-            refs.markUp.innerHTML = markup;
-            // refs.extendedInfo.classList.add('hide');
-            refs.extendedInfo.classList.toggle('hide');
+            markUp.innerHTML = markup;
+            // extendedInfo.classList.add('hide');
+            extendedInfo.classList.toggle('hide');
             break;
 
         }
