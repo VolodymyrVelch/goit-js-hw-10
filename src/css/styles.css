@@ -18,3 +18,21 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+.country-block{
+  display: flex;
+  align-items: center;
+}
+.country-info_name{
+  margin-left: 5px;
+}
+.country-info_text{
+  font-size: 16px;
+  font-weight: 600;
+}
+.country-info_description{
+  font-size: 18px;
+  font-weight: 400;
+}
+.hide{
+  display: none;
+}

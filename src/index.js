@@ -12,8 +12,10 @@ const DEBOUNCE_DELAY = 1000;
 
 refs = {
   input: document.querySelector('input'),
-  markup: document.querySelector('.country-info'),
+  markUp: document.querySelector('.country-info'),
+  extendedInfo: document.querySelector('.country-info_extended')
 };
+console.log(refs.extendedInfo)
 
 refs.input.addEventListener('input', debounce(onInputchange, DEBOUNCE_DELAY));
 
@@ -25,9 +27,26 @@ function onInputchange(e) {
     //   console.log(country);
     // })
     .then(countries => {
+
+      console.log(countries.length)
       countries.map(country => {
         const markup = renderCountry(country);
-        refs.markup.innerHTML = markup;
+        switch(true){
+          case (countries.length===1):
+          refs.markUp.innerHTML = markup;
+          break;
+          case (countries.length>10):
+            
+             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
+             break;
+          case (1<countries.length<10):
+            refs.markUp.innerHTML = markup;
+            // refs.extendedInfo.classList.add('hide');
+            refs.extendedInfo.classList.toggle('hide');
+            break;
+
+        }
+
       });
     })
     .catch(

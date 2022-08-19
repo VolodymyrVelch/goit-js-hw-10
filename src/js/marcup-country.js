@@ -8,7 +8,7 @@ export function renderCountry({ name, capital, population, flags, languages }) {
     <img src="${flags.svg}" alt="flag" height='30' wtdth='30'>
     <h2 class="country-info_name">${name.official}</h2>
   </div>
-  <ul>
+  <ul class="country-info_extended">
     <li class="country-info_item">
       <p class="country-info_text">Capital: <span class="country-info_description"> ${capital} </span> </p>
     </li>
