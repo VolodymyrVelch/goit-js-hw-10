@@ -1,11 +1,16 @@
-export function renderCountry({ name, capital, population, flags, languages }) {
-  console.log(name.official, capital, population, flags, languages);
-  let langList = Object.values(languages);
-  //   //   let lang = langList.split(' ');
-  //   console.log(langList.splite(''));
+export { renderCountry, renderCountryList };
 
-  return `  <div class="country-block">
-    <img src="${flags.svg}" alt="flag" height='30' wtdth='30'>
+const renderCountry = function ({
+  name,
+  capital,
+  population,
+  flags,
+  languages,
+}) {
+  let langList = Object.values(languages);
+
+  return `  <div class="country-main">
+    <img src="${flags.svg}" alt="flag" width='30'>
     <h2 class="country-info_name">${name.official}</h2>
   </div>
   <ul class="country-info_extended">
@@ -19,4 +24,15 @@ export function renderCountry({ name, capital, population, flags, languages }) {
       <p class="country-info_text">Languages: <span class="country-info_description"> ${langList} </span> </p>
     </li>
   </ul>`;
-}
+};
+
+const renderCountryList = function (countryArray) {
+  return countryArray
+    .map(
+      country => `  <div class="country-main">
+      <img src="${country.flags.svg}" alt="flag"  width='30'>
+      <p class="country-info_name">${country.name.official}</p>
+    </div>`
+    )
+    .join('');
+};
