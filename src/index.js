@@ -34,10 +34,8 @@ function onInputchange(e) {
         if (arrayLength === 1) {
           const markup = createCountry(country);
           renderCountryInfo(markup);
-          return;
         } else if (arrayLength > 10) {
           tooManyMatches();
-          return;
         } else if (arrayLength > 1) {
           const markupList = createCountryList(countries);
           renderCountryList(markupList);
@@ -64,7 +62,7 @@ function tooManyMatches() {
   );
 }
 
-function onFetchError(error) {
+function onFetchError() {
   Notiflix.Notify.failure(
     'Oops, there is no country with that name',
     NOTIFY_OPTIONS
