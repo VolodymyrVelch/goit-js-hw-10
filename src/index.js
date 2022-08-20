@@ -20,7 +20,7 @@ const refs = {
 
 refs.input.addEventListener('input', debounce(onInputchange, DEBOUNCE_DELAY));
 
-async function onInputchange(e) {
+function onInputchange(e) {
   e.preventDefault;
   const inputData = refs.input.value.trim();
   if (inputData === '') {
