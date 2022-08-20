@@ -17,6 +17,7 @@ body {
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+  outline-color: grey;
 }
 .country-list {
   margin: 0;
@@ -41,7 +42,4 @@ body {
 .country-info_description {
   font-size: 18px;
   font-weight: 400;
-}
-.hide {
-  display: none;
 }

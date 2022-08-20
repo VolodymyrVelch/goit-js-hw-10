@@ -1,6 +1,6 @@
-export { renderCountry, renderCountryList };
+export { createCountry, createCountryList };
 
-const renderCountry = function ({
+const createCountry = function ({
   name,
   capital,
   population,
@@ -26,13 +26,13 @@ const renderCountry = function ({
   </ul>`;
 };
 
-const renderCountryList = function (countryArray) {
+const createCountryList = function (countryArray) {
   return countryArray
     .map(
-      country => `  <div class="country-main">
+      country => `  <li class="country-main">
       <img src="${country.flags.svg}" alt="flag"  width='30'>
       <p class="country-info_name">${country.name.official}</p>
-    </div>`
+    </li>`
     )
     .join('');
 };

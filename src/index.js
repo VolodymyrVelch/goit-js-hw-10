@@ -2,44 +2,59 @@ import './css/styles.css';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './js/fetchCountries';
-import { renderCountry, renderCountryList } from './js/marcup-country';
+import { createCountry, createCountryList } from './js/marcup-country';
 
 const DEBOUNCE_DELAY = 300;
 
 const NOTIFY_OPTIONS = {
-  timeout: 2000,
+  timeout: 1000,
   showOnlyTheLastOne: true,
   clickToClose: true,
 };
 
 const refs = {
   input: document.querySelector('input'),
-  adMarkup: document.querySelector('.country-info'),
+  countryMarkup: document.querySelector('.country-info'),
+  couuntryListMarkup: document.querySelector('.country-list'),
 };
-// const input = document.querySelector('input');
-// const markUp = document.querySelector('.country-info');
 
 refs.input.addEventListener('input', debounce(onInputchange, DEBOUNCE_DELAY));
 
-function onInputchange(e) {
+async function onInputchange(e) {
   e.preventDefault;
   const inputData = refs.input.value.trim();
+  if (inputData === '') {
+    refs.countryMarkup.innerHTML = '';
+    refs.couuntryListMarkup.innerHTML = '';
+  }
   fetchCountries(inputData)
     .then(countries => {
       countries.map(country => {
-        const markup = renderCountry(country);
-        const markupList = renderCountryList(countries);
         let arrayLength = countries.length;
         if (arrayLength === 1) {
-          refs.adMarkup.innerHTML = markup;
+          const markup = createCountry(country);
+          renderCountryInfo(markup);
+          return;
         } else if (arrayLength > 10) {
           tooManyMatches();
-        } else if (1 < arrayLength) {
-          refs.adMarkup.innerHTML = markupList;
+          return;
+        } else if (arrayLength > 1) {
+          const markupList = createCountryList(countries);
+          renderCountryList(markupList);
         }
       });
     })
     .catch(onFetchError);
+}
+
+function renderCountryList(markupList) {
+  refs.countryMarkup.innerHTML = '';
+  refs.couuntryListMarkup.innerHTML = markupList;
+}
+
+function renderCountryInfo(markup) {
+  refs.couuntryListMarkup.innerHTML = '';
+  refs.countryMarkup.innerHTML = markup;
 }
 
 function tooManyMatches() {
@@ -50,7 +65,7 @@ function tooManyMatches() {
 }
 
 function onFetchError(error) {
-  Notiflix.Notify.warning(
+  Notiflix.Notify.failure(
     'Oops, there is no country with that name',
     NOTIFY_OPTIONS
   );
